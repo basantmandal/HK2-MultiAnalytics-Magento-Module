@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="hk2_analytics_module_settings" translate="label" sortOrder="42">
+            <label>HK2 Multi Analytics</label>
+        </tab>
+
+        <section id="hk2_multianalytics_section1" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="40"
+                 translate="label">
+            <label>Configuration</label>
+            <tab>hk2_analytics_module_settings</tab>
+            <resource>HK2_Analytics::config</resource>
+
+            <!-- Group 1 Settings -->
+            <group id="hk2_multianalytics_section1_group1" showInDefault="1" showInWebsite="0" showInStore="0"
+                   sortOrder="1" translate="label">
+                <label><![CDATA[General Option]]></label>
+
+                <field id="hk2_analytics_enable" showInDefault="1" showInWebsite="0" showInStore="0" type="select"
+                       sortOrder="0" translate="label">
+                    <label><![CDATA[Enable Module]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select Yes to Enable Module]]>
+                    </comment>
+                </field>
+
+                <field id="hk2_analytics_debug" showInDefault="1" showInWebsite="0" showInStore="0" type="select"
+                       sortOrder="0" translate="label">
+                    <label><![CDATA[Enable Debug Mode]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select Yes to Enable Debug Mode]]>
+                    </comment>
+                </field>
+            </group>
+
+            <!-- Group 2 Settings -->
+            <group id="hk2_multianalytics_section1_group2" showInDefault="1" showInWebsite="0" showInStore="0"
+                   sortOrder="1" translate="label">
+                <label><![CDATA[Google Tag Options]]></label>
+                <field id="hk2_analytics_gtag_id" showInDefault="1" showInWebsite="0" showInStore="0" type="text"
+                       sortOrder="0" translate="label">
+                    <label><![CDATA[Google Tag ID]]></label>
+                    <comment>
+                        <![CDATA[Google Tag ID Example G-49NVV979NC]]>
+                    </comment>
+                </field>
+                <field id="hk2_analytics_gtag_manager_id" showInDefault="1" showInWebsite="0" showInStore="0"
+                       type="text" sortOrder="0" translate="label">
+                    <label><![CDATA[Google Tag Manager ID]]></label>
+                    <comment>
+                        <![CDATA[Google Tag Manager Example GTM-TV81PR6]]>
+                    </comment>
+                </field>
+                <field id="hk2_analytics_gtag_data_layer_id" showInDefault="1" showInWebsite="0" showInStore="0"
+                       type="text" sortOrder="0" translate="label">
+                    <label><![CDATA[Google Data Layer ID]]></label>
+                    <comment>
+                        <![CDATA[Google Data Layer ID Example UA-119002088-8]]>
+                    </comment>
+                </field>
+            </group>
+
+            <!-- Group 3 Settings -->
+            <group id="hk2_multianalytics_section1_group3" showInDefault="1" showInWebsite="0" showInStore="0"
+                   sortOrder="1" translate="label">
+                <label><![CDATA[Facebook Options]]></label>
+
+                <field id="hk2_analytics_fb_domain_veri_code" showInDefault="1" showInWebsite="0" showInStore="0"
+                       type="textarea" sortOrder="0" translate="label">
+                    <label><![CDATA[Facebook Domain Verification Code]]></label>
+                    <comment>
+                        <![CDATA[Facebook Domain Verification Ex:- ufligc19hgf0euqanm3qjv11g2e5k5]]>
+                    </comment>
+                </field>
+
+                <field id="hk2_analytics_fb_pixel_code" showInDefault="1" showInWebsite="0" showInStore="0"
+                       type="textarea" sortOrder="0" translate="label">
+                    <label><![CDATA[Facebook Pixel Code]]></label>
+                    <comment>
+                        <![CDATA[Enter Facebook Pixel Code - Ex - <a href="https://developers.facebook.com/docs/meta-pixel/get-started/#base-code">https://developers.facebook.com/docs/meta-pixel/get-started/#base-code</a>]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

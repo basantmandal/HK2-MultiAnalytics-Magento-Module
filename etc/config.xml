@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <hk2_multianalytics_section1>
+
+            <!-- Section 1 Group 1 Settings -->
+            <hk2_multianalytics_section1_group1>
+                <hk2_analytics_enable>0</hk2_analytics_enable>
+                <hk2_analytics_debug>0</hk2_analytics_debug>
+            </hk2_multianalytics_section1_group1>
+
+            <!-- Section 1 Group 2 Settings -->
+            <hk2_multianalytics_section1_group2>
+                <hk2_analytics_gtag_id>G-49NVV979GC</hk2_analytics_gtag_id>
+                <hk2_analytics_gtag_manager_id>GTM-TV81PR1</hk2_analytics_gtag_manager_id>
+                <hk2_analytics_gtag_data_layer_id>UA-119002088-1</hk2_analytics_gtag_data_layer_id>
+            </hk2_multianalytics_section1_group2>
+
+            <!-- Section 1 Group 3 Settings -->
+            <hk2_multianalytics_section1_group3>
+                <hk2_analytics_fb_domain_veri_code>ufligc19hgf0euqanm3qjv11g2e5k5</hk2_analytics_fb_domain_veri_code>
+                <hk2_analytics_fb_pixel_code></hk2_analytics_fb_pixel_code>
+            </hk2_multianalytics_section1_group3>
+
+        </hk2_multianalytics_section1>
+    </default>
+</config>

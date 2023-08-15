@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * @var $block \HK2\MultiAnalytics\Block\Index
+ */
+
+$isEnabled = $block->IsEnabled();
+$isDebugEnabled = $block->isDebugEnabled();
+
+// Google Tag Manager Config Value
+$gTagID = $block->getGtagID();
+$gTagManagerID = $block->getGtagManagerID();
+$gTagLayerID = $block->getGtagLayerID();
+
+// Facebook Config Values
+$facebookDomainVerificationCode = $block->getFacebookDomainVerificationCode();
+$facebookPixelCode = $block->getFacebookPixelCode();
+
+// Other Page Config Values
+$loginStatus = $block->isLoggedIn();
+$pageType = $block->getPageType();
+$assigned_page_type = $block->assignPageType();
+$currentCode = $block->getStoreCurrencyCode();
+
+// Order Related Values
+$orderID = $block->getLastOrderID();
+$orderID_Inc = $block->getLastOrderIncrementID();
+$orderAmount = $block->getLastOrderAmount($orderID);
+
+// Debug Mode
+if ($isDebugEnabled) :
+    echo '<div class="panel" style="font-size:10px; padding:2px; background:#c2e1d7">';
+    echo "<p style='padding:2px'><b>Module Debug Mode Enabled</b></p>";
+    echo '<ul>';
+    echo '<li style="font-weight: bold;"> Module Enabled = ' . /* @noEscape */ $isEnabled . '</li>';
+    echo '<li style="font-weight: bold;"> Page Type = ' . /* @noEscape */ $pageType . '</li>';
+    echo '<li style="font-weight: bold;"> Google Tag ID = ' . /* @noEscape */ $gTagID . '</li>';
+    echo '<li style="font-weight: bold;"> Google Tag Manager ID = ' . /* @noEscape */ $gTagManagerID . '</li>';
+    echo '<li style="font-weight: bold;"> Google Tag Layer ID = ' . /* @noEscape */ $gTagLayerID . '</li>';
+    echo '<li style="font-weight: bold;"> Page Type = ' . /* @noEscape */ $pageType . '</li>';
+    echo '<li style="font-weight: bold;"> Assigned Page Type = ' . /* @noEscape */ $assigned_page_type . '</li>';
+    echo '<li style="font-weight: bold;"> Order ID = ' . /* @noEscape */ $orderID . '</li>';
+    echo '<li style="font-weight: bold;"> Order Amount = ' . /* @noEscape */ $orderAmount . '</li>';
+    echo '<li style="font-weight: bold;"> Currency Code = ' . /* @noEscape */ $currentCode . '</li>';
+    echo '</ul>';
+    echo '</div>';
+endif;
+
+if ($isEnabled > 0) : ?>
+
+    <!-- Facebook Domain Verification Code -->
+    <meta name="facebook-domain-verification" content="<?= /* @noEscape */ $facebookDomainVerificationCode; ?>" />
+    <!-- Facebook Domain Verification Code Ends -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src='https://www.googletagmanager.com/gtag/js?id=<?= /* @noEscape */ $gTagID; ?>'></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', '<?= /* @noEscape */ $gTagID; ?>');
+    </script>
+    <!-- Google tag (gtag.js) -->
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '<?= /* @noEscape */ $gTagManagerID; ?>');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Data Layer Script -->
+    <script>
+        gtag('config', '<?= /* @noEscape */ $gTagLayerID; ?>', {
+            'custom_map': {
+                'dimension2': 'PageType',
+                'dimension1': 'LoginStatus'
+            }
+        });
+
+        gtag('event', 'pageview', {
+            'PageType': "<?= /* @noEscape */ $assigned_page_type; ?>",
+            'LoginStatus': "<?= /* @noEscape */ $loginStatus; ?>"
+        });
+
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'LoginStatus': "<?= /* @noEscape */ $loginStatus; ?>",
+            'PageType': "<?= /* @noEscape */ $assigned_page_type; ?>"
+        });
+
+        var dimensionValue1 = "<?= /* @noEscape */ $loginStatus; ?>";
+        ga('set', 'dimension1', dimensionValue1);
+        var dimensionValue2 = "<?= /* @noEscape */ $assigned_page_type; ?>";
+        ga('set', 'dimension2', dimensionValue2);
+    </script>
+
+    <script>
+        window._uxa = window._uxa || [];
+        window._uxa.push(['setCustomVariable', 2, 'PageType', "<?= /* @noEscape */ $assigned_page_type; ?>", 3]);
+        window._uxa.push(['setCustomVariable', 3, 'LoginStatus', "<?= /* @noEscape */ $loginStatus; ?>", 3]);
+    </script>
+    <!-- End Google Data Layer Script -->
+
+    <!-- Facebook Pixel Code -->
+    <?= /* @noEscape */ $facebookPixelCode; ?>
+    <!-- Facebook Pixel Code Ends -->
+
+    <?php if ($assigned_page_type == 'Confirmation Page') : ?>
+        <script>
+            window._uxa = window._uxa || [];
+            window._uxa.push(['ec:transaction:create', {
+                'id': '<?= /* @noEscape */ $orderID_Inc; ?>',
+                'revenue': '<?= /* @noEscape */ $orderAmount; ?>',
+                'currency': '<?= /* @noEscape */ $currentCode; ?>'
+            }]);
+            window._uxa.push(['ec:transaction:send']);
+        </script>
+    <?php endif; ?>
+
+<?php endif; ?>
