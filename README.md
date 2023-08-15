@@ -73,10 +73,8 @@ Please clear the cache after enabling the option.
 
 Once Installed, You can check in Magento Frontend - View Page Source (Right Click - View Page Source) & you can see Google Tag Scripts Added. Please check the screenshot in case you have any doubts.
 
-Note:- This module enables Bootstrap CDN in Magento Frontend.
-
-![Screenshot2](docs/images/ScreenShot2.png)
-![Screenshot1](docs/images/ScreenShot1.png)
+![Screenshot2](docs/images/ScreenShot_02.png)
+![Screenshot1](docs/images/ScreenShot_01.jpg)
 
 ### Method 2: Install via composer (Recommend)
 
@@ -115,22 +113,22 @@ php bin/magento maintenance:disable
 ## Screenshots
 
 1. Installation Path
-   ![Screenshot1](docs/images/ScreenShot1.jpg)
+   ![Screenshot1](docs/images/ScreenShot_01.jpg)
 
 2. Admin Panel - Settings
-   ![Screenshot2](docs/images/ScreenShot2.png)
+   ![Screenshot2](docs/images/ScreenShot_02.png)
 
 3. Category Page
-   ![Screenshot3](docs/images/ScreenShot3.jpg)
+   ![Screenshot3](docs/images/ScreenShot_03.png)
 
 4. Product Page
-   ![Screenshot3](docs/images/ScreenShot4.jpg)
+   ![Screenshot3](docs/images/ScreenShot_04.png)
 
 5. Google Tag Scripts Screenshot
-   ![Screenshot3](docs/images/ScreenShot5.jpg)
+   ![Screenshot3](docs/images/ScreenShot_05.png)
 
 6. Facebook Pixel Screenshot
-   ![Screenshot3](docs/images/ScreenShot6.jpg)
+   ![Screenshot3](docs/images/ScreenShot_06.png)
 
 # Composer Package Link
 
