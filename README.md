@@ -25,7 +25,7 @@ This is a Open Source - Free to use Module. No charge or any fee is there to use
 
 ### Method 1: Install ready-to-paste package
 
-[Download Link - HK2 - Add Boostrap5 - (https://github.com/basantmandal/HK2-MultiAnalytics/releases/tag/1.0.0)](https://github.com/basantmandal/HK2-MultiAnalytics/releases/tag/12.0.0)
+[Download Link - HK2 - Add Boostrap5 - (https://github.com/basantmandal/HK2-MultiAnalytics/releases/tag/1.0.0)](https://github.com/basantmandal/HK2-MultiAnalytics/releases/tag/1.0.0)
 
 Download the zip package and unzip it in app/code folder.
 
