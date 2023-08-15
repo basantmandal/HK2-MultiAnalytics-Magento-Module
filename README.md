@@ -73,8 +73,8 @@ Please clear the cache after enabling the option.
 
 Once Installed, You can check in Magento Frontend - View Page Source (Right Click - View Page Source) & you can see Google Tag Scripts Added. Please check the screenshot in case you have any doubts.
 
-![Screenshot2](docs/images/ScreenShot_02.png)
-![Screenshot1](docs/images/ScreenShot_01.jpg)
+![Screenshot2](/docs/images/ScreenShot_02.png)
+![Screenshot1](/docs/images/ScreenShot_01.jpg)
 
 ### Method 2: Install via composer (Recommend)
 
