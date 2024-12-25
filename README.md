@@ -76,7 +76,7 @@ Please clear the cache after enabling the option.
 Once Installed, You can check in Magento Frontend - View Page Source (Right Click - View Page Source) & you can see Google Tag Scripts Added. Please check the screenshot in case you have any doubts.
 
 ![Screenshot2](/docs/images/ScreenShot_02.png)
-![Screenshot1](/docs/images/ScreenShot_01.jpg)
+![Screenshot1](/docs/images/ScreenShot_01.png)
 
 ### Method 2: Install via composer (Recommend)
 
@@ -95,6 +95,29 @@ php bin/magento setup:static-content:deploy
 ```
 
 Note: It is always recommended to install and verify the extension first in the development or staging environment and once verified then install it on production environment.
+
+## Screenshots
+
+1. Installation Path
+   ![Screenshot1](docs/images/ScreenShot_01.png)
+
+2. Admin Panel - Settings
+   ![Screenshot2](docs/images/ScreenShot_02.png)
+
+3. Category Page
+   ![Screenshot3](docs/images/ScreenShot_03.png)
+
+4. Product Page
+   ![Screenshot3](docs/images/ScreenShot_04.png)
+
+5. Google Tag Scripts Screenshot
+   ![Screenshot3](docs/images/ScreenShot_05.png)
+
+6. Facebook Pixel Screenshot
+   ![Screenshot3](docs/images/ScreenShot_06.png)
+
+7. Google RSS Feed URL - Link Screenshot
+   ![Screenshot3](docs/images/ScreenShot_07.png)
 
 ## 🛠️ Maintenance mode
 
@@ -119,26 +142,6 @@ This extension does not read, change, store, or transmit any of your personal da
 ## 📫 Support
 
 For support or any bug report or changes mail me at - <support@hashtagkitto.co.in>
-
-## Screenshots
-
-1. Installation Path
-   ![Screenshot1](docs/images/ScreenShot_01.jpg)
-
-2. Admin Panel - Settings
-   ![Screenshot2](docs/images/ScreenShot_02.png)
-
-3. Category Page
-   ![Screenshot3](docs/images/ScreenShot_03.png)
-
-4. Product Page
-   ![Screenshot3](docs/images/ScreenShot_04.png)
-
-5. Google Tag Scripts Screenshot
-   ![Screenshot3](docs/images/ScreenShot_05.png)
-
-6. Facebook Pixel Screenshot
-   ![Screenshot3](docs/images/ScreenShot_06.png)
 
 ## 🐞 Bug Report
 
