@@ -442,7 +442,7 @@ class Data extends AbstractHelper
             );
         } catch (\Exception $e) {
             if ($this->isDebugEnabled()) {
-                echo '<pre> Error at Get Product Collection = ' . $e . '</pre>';
+                print_r('<pre> Error at Get Product Collection = ' . $e . '</pre>');
             }
         }
 
@@ -506,16 +506,16 @@ class Data extends AbstractHelper
             $media_path = $media_path . $this->folder_name;
 
             if ($this->isDebugEnabled()) {
-                echo '<pre>';
-                echo '<ol>';
-                echo '<li> Store URL = ' . $storeURL . '</li>';
-                echo '<li> Store URL = ' . $storeURL2 . '</li>';
-                echo '<li> Store Meta Title = ' . $_meta_title . '</li>';
-                echo '<li> Store Meta Description = ' . $_meta_description . '</li>';
-                echo '<li> Store Name = ' . $storeName . '</li>';
-                echo '<li> Store Filename = ' . $this->file_feed_name . '</li>';
-                echo '</ol>';
-                echo '</pre>';
+                print_r('<pre>');
+                print_r('<ol>');
+                print_r('<li> Store URL = ' . $storeURL . '</li>');
+                print_r('<li> Store URL = ' . $storeURL2 . '</li>');
+                print_r('<li> Store Meta Title = ' . $_meta_title . '</li>');
+                print_r('<li> Store Meta Description = ' . $_meta_description . '</li>');
+                print_r('<li> Store Name = ' . $storeName . '</li>');
+                print_r('<li> Store Filename = ' . $this->file_feed_name . '</li>');
+                print_r('</ol>');
+                print_r('</pre>');
             }
 
             try {
@@ -526,7 +526,7 @@ class Data extends AbstractHelper
                 return "<a href='$export_file_link' class='action primary' target='_blank'>Click to Download</a>";
             } catch (\Exception $e) {
                 if ($this->isDebugEnabled()) {
-                    echo '<pre> Error at Generate XML Function = ' . $e . '</pre>';
+                    print_r('<pre> Error at Generate XML Function = ' . $e . '</pre>');
                 }
 
                 return "<a href='#' class='action primary' target='_blank'>Feed Generate Failed</a>";
