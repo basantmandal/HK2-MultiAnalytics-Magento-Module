@@ -5,7 +5,7 @@
 
             <!-- Section 1 Group 1 Settings -->
             <hk2_multianalytics_section1_group1>
-                <hk2_analytics_enable>0</hk2_analytics_enable>
+                <hk2_analytics_enable>1</hk2_analytics_enable>
                 <hk2_analytics_debug>0</hk2_analytics_debug>
             </hk2_multianalytics_section1_group1>
 

@@ -7,7 +7,7 @@
  *
  * This source file is subject to the Basant Mandal (HK2 - HashTagKitto) license that is
  * available in this module named LICENSE.txt
- * A copy of license is also avaialble at url - https://www.hashtagkitto.co.in/LICENSE.txt
+ * A copy of license is also avaialble at url - https://www.basantmandal.in/LICENSE.txt
  *
  * DISCLAIMER
  *
@@ -16,8 +16,8 @@
  *
  * @category    Basant Mandal (HK2 - HashTagKitto)
  * @package     HK2_MultiAnalytics
- * @copyright   Copyright (c) Basant Mandal (HK2 - HashTagKitto) (https://www.hashtagkitto.co.in/) All rights reserved.
- * @license     https://hashtagkitto.co.in/LICENSE.txt
+ * @copyright   Copyright (c) Basant Mandal (HK2 - HashTagKitto) (https://www.basantmandal.in/) All rights reserved.
+ * @license     https://www.basantmandal.in/LICENSE.txt
  * @license     LICENSE.txt - Available in this Module Root Folder
  */
 
@@ -37,6 +37,13 @@ use Magento\Checkout\Model\Session as checkoutSession;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Sales\Model\OrderRepository;
+
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Io\File;
+use Magento\Catalog\Helper\ImageFactory;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\View\Page\Config;
 
 class Data extends AbstractHelper
 {
@@ -64,45 +71,77 @@ class Data extends AbstractHelper
     private const CONTENT_SQUARE_LOGGED_OUT = "logged out";
 
     // Other Variable Declaration
+
+    /**
+     * @var string
+     */
+    private $folder_name = 'HK2/Analytics/';
+
+    private $file_feed_name = 'feed.xml';
     /**
      * @var httpContext
      */
-    private $_httpContext;
+    private httpContext $_httpContext;
 
     /**
      * @var Http
      */
-    private $_httpRequest;
+    private Http $_httpRequest;
 
     /**
      * @var Title
      */
-    private $_pageTitle;
+    private Title $_pageTitle;
 
     /**
      * @var StoreManagerInterface
      */
-    private $_storeManager;
+    private StoreManagerInterface $_storeManager;
 
     /**
      * @var PriceCurrencyInterface
      */
-    private $_priceCurrency;
+    private PriceCurrencyInterface $_priceCurrency;
 
     /**
      * @var ScopeConfigInterface
      */
-    private $_scopeConfig;
+    private ScopeConfigInterface $_scopeConfig;
 
     /**
      * @var checkoutSession
      */
-    private $_checkoutSession;
+    private checkoutSession $_checkoutSession;
 
     /**
      * @var OrderRepository
      */
-    private $_orderRepository;
+    private OrderRepository $_orderRepository;
+
+    /**
+     * @var ImageFactory
+     */
+    protected ImageFactory $_imageHelperFactory;
+
+    /**
+     * @var Filesystem
+     */
+    protected Filesystem $_filesystem;
+
+    /**
+     * @var Config
+     */
+    protected Config $_page_config;
+
+    /**
+     * @var CollectionFactory
+     */
+    protected CollectionFactory $_productCollection;
+
+    /**
+     * @var File
+     */
+    protected File $file;
 
     /**
      * Constructor
@@ -116,6 +155,11 @@ class Data extends AbstractHelper
      * @param PriceCurrencyInterface $priceCurrency
      * @param checkoutSession $checkoutSession
      * @param OrderRepository $orderRepository
+     * @param ImageFactory $imageHelperFactory
+     * @param Filesystem $filesystem
+     * @param Config $pageConfig
+     * @param CollectionFactory $productCollection
+     * @param File $file
      */
     public function __construct(
         Context $context,
@@ -126,9 +170,13 @@ class Data extends AbstractHelper
         StoreManagerInterface $storeManager,
         PriceCurrencyInterface $priceCurrency,
         checkoutSession $checkoutSession,
-        OrderRepository $orderRepository
+        OrderRepository $orderRepository,
+        ImageFactory $imageHelperFactory,
+        Filesystem $filesystem,
+        Config $pageConfig,
+        CollectionFactory $productCollection,
+        File $file
     ) {
-        parent::__construct($context);
         $this->_scopeConfig = $scopeConfig;
         $this->_httpContext = $httpContext;
         $this->_httpRequest = $http;
@@ -137,6 +185,12 @@ class Data extends AbstractHelper
         $this->_priceCurrency = $priceCurrency;
         $this->_checkoutSession = $checkoutSession;
         $this->_orderRepository = $orderRepository;
+        $this->_filesystem = $filesystem;
+        $this->_page_config = $pageConfig;
+        $this->_imageHelperFactory = $imageHelperFactory;
+        $this->_productCollection = $productCollection;
+        $this->file = $file;
+        parent::__construct($context);
     }
 
     /**
@@ -236,7 +290,7 @@ class Data extends AbstractHelper
      *
      * @return string
      */
-    public function getPageType()
+    public function getPageType(): string
     {
         return $this->_httpRequest->getFullActionName();
     }
@@ -293,7 +347,7 @@ class Data extends AbstractHelper
      * @return string
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getStoreCurrencyCode()
+    public function getStoreCurrencyCode(): string
     {
         return $this->_storeManager->getStore()->getCurrentCurrencyCode();
     }
@@ -304,7 +358,7 @@ class Data extends AbstractHelper
      * @return string
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getStoreCurrencySymbol()
+    public function getStoreCurrencySymbol(): string
     {
         $storeID = $this->getStoreID();
 
@@ -361,5 +415,178 @@ class Data extends AbstractHelper
 
             return (float)$orderAmount;
         }
+    }
+
+    /**
+     * Gets Product Collection
+     *
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getProductCollection()
+    {
+        /* Get Current Store ID */
+        $storeId = $this->getStoreID();
+        $collection = false;
+
+        try {
+            $collection = $this->_productCollection->create();
+            $collection->addAttributeToSelect('*');
+            $collection->addStoreFilter($storeId);
+            if ($this->isDebugEnabled()) {
+                $collection->setPageSize(2);
+            }
+            $collection->addAttributeToFilter(
+                'status',
+                \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED
+            );
+        } catch (\Exception $e) {
+            if ($this->isDebugEnabled()) {
+                echo '<pre> Error at Get Product Collection = ' . $e . '</pre>';
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Gets Product Image
+     *
+     * @param $product
+     * @return mixed
+     */
+    public function getProductImage($product)
+    {
+        return $this->_imageHelperFactory->create()->init($product, 'product_small_image')->getUrl();
+    }
+
+    /**
+     * Get Product Price
+     *
+     * @param $product
+     * @return string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getProductPrice($product): string
+    {
+        return $product->getFinalPrice() . ' ' . $this->getStoreCurrencyCode();
+    }
+
+    /**
+     * Generates XML
+     *
+     *
+     * @return string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+
+    public function generateXml()
+    {
+        $contents = $this->generate_google_product_feed();
+        if ($contents) {
+            $storeURL = $this->_storeManager->getStore()->getBaseUrl();
+            $storeURL2 = $this->_storeManager->getStore()->getCurrentUrl();
+            $_meta_title = $this->_page_config->getTitle()->getShort();
+            $_meta_description = (!empty($this->_page_config->getDescription())
+                ? $this->make_string_xml_safe($this->_page_config->getDescription())
+                : '');
+            $storeName = $this->_storeManager->getStore()->getName();
+            $title = 'Feed generated for ' . $storeName . ' - ' . $storeURL;
+            $xml_content = '<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">' . PHP_EOL;
+            $xml_content .= '<channel>' . PHP_EOL;
+            $xml_content .= '<title>' . $title . '</title>' . PHP_EOL;
+            $xml_content .= '<link>' . $storeURL . '</link>' . PHP_EOL;
+            $xml_content .= '<description><![CDATA[ ' . $_meta_description . ']]></description>' . PHP_EOL;
+            $xml_content .= $contents . PHP_EOL;
+            $xml_content .= '</channel>' . PHP_EOL;
+            $xml_content .= '</rss>';
+            $media_path = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath();
+            $media_path = $media_path . $this->folder_name;
+
+            if ($this->isDebugEnabled()) {
+                echo '<pre>';
+                echo '<ol>';
+                echo '<li> Store URL = ' . $storeURL . '</li>';
+                echo '<li> Store URL = ' . $storeURL2 . '</li>';
+                echo '<li> Store Meta Title = ' . $_meta_title . '</li>';
+                echo '<li> Store Meta Description = ' . $_meta_description . '</li>';
+                echo '<li> Store Name = ' . $storeName . '</li>';
+                echo '<li> Store Filename = ' . $this->file_feed_name . '</li>';
+                echo '</ol>';
+                echo '</pre>';
+            }
+
+            try {
+                $this->file->mkdir($media_path);
+                $this->file->write($media_path . $this->file_feed_name, $xml_content);
+                $export_file_link = "/pub/media/$this->folder_name$this->file_feed_name";
+
+                return "<a href='$export_file_link' class='action primary' target='_blank'>Click to Download</a>";
+            } catch (\Exception $e) {
+                if ($this->isDebugEnabled()) {
+                    echo '<pre> Error at Generate XML Function = ' . $e . '</pre>';
+                }
+
+                return "<a href='#' class='action primary' target='_blank'>Feed Generate Failed</a>";
+            }
+        } else {
+            return "<a href='#' class='action primary' target='_blank'>Feed Generate Failed - No Product </a>";
+        }
+    }
+
+    /**
+     * Generates Item Feed for Google RSS Feed
+     *
+     * @return false|string|void
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function generate_google_product_feed()
+    {
+        $products = false;
+        $products_collection = $this->getProductCollection();
+        if (!empty($products_collection)) {
+            $products = '';
+            foreach ($products_collection as $product) {
+                $product_sku = $product->getSKU();
+                $product_name = (empty($product->getName()) ? $product_sku : $this->make_string_xml_safe($product->getName()));
+                $product_description = (empty($product->getDescription())) ? '' : substr(
+                    $this->make_string_xml_safe($product->getDescription()),
+                    0,
+                    500
+                );
+                $product_link = $product->getProductUrl();
+                $product_image = $this->getProductImage($product);
+                $product_store_code = $product->getStoreID();
+                $product_price = $this->getProductPrice($product);
+                $product_availability = ($product->getStatus() == 1) ? 'in stock' : 'out of stock';
+                $products .= '<item>' . PHP_EOL;
+                $products .= '<g:id>' . $product_sku . '</g:id>' . PHP_EOL;
+                $products .= '<g:title>' . $product_name . '</g:title>' . PHP_EOL;
+                $products .= '<g:description><![CDATA[' . $product_description . ']]></g:description>' . PHP_EOL;
+                $products .= '<g:link><![CDATA[' . $product_link . ']]></g:link>' . PHP_EOL;
+                $products .= '<g:image_link><![CDATA[' . $product_image . ']]></g:image_link>' . PHP_EOL;
+                $products .= '<g:condition>new</g:condition>' . PHP_EOL;
+                $products .= '<g:store_code>' . $product_store_code . '</g:store_code>' . PHP_EOL;
+                $products .= '<g:price>' . $product_price . '</g:price>' . PHP_EOL;
+                $products .= '<g:availability>' . $product_availability . '</g:availability>' . PHP_EOL;
+                $products .= '</item>' . PHP_EOL;
+            }
+        }
+
+        return $products;
+    }
+
+    /**
+     * Strips Tags from String
+     *
+     * @param $string
+     * @return string
+     */
+    public function make_string_xml_safe($string): string
+    {
+        return !empty($string) ? htmlspecialchars(strip_tags(preg_replace("/[^A-Za-z0-9 ]/", '', $string))) : '';
     }
 }

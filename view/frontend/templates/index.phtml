@@ -28,7 +28,7 @@ $orderID_Inc = $block->getLastOrderIncrementID();
 $orderAmount = $block->getLastOrderAmount($orderID);
 
 // Debug Mode
-if ($isDebugEnabled) :
+if ($isDebugEnabled):
     echo '<div class="panel" style="font-size:10px; padding:2px; background:#c2e1d7">';
     echo "<p style='padding:2px'><b>Module Debug Mode Enabled</b></p>";
     echo '<ul>';
@@ -46,7 +46,7 @@ if ($isDebugEnabled) :
     echo '</div>';
 endif;
 
-if ($isEnabled > 0) : ?>
+if ($isEnabled > 0): ?>
 
     <!-- Facebook Domain Verification Code -->
     <meta name="facebook-domain-verification" content="<?= /* @noEscape */ $facebookDomainVerificationCode; ?>" />
@@ -122,7 +122,7 @@ if ($isEnabled > 0) : ?>
     <?= /* @noEscape */ $facebookPixelCode; ?>
     <!-- Facebook Pixel Code Ends -->
 
-    <?php if ($assigned_page_type == 'Confirmation Page') : ?>
+    <?php if ($assigned_page_type == 'Confirmation Page'): ?>
         <script>
             window._uxa = window._uxa || [];
             window._uxa.push(['ec:transaction:create', {
