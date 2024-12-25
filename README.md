@@ -4,7 +4,9 @@ HK2 Multi Analytics - Offers easy integration of your ecommerce store with integ
 
 Easily configure Google Tag Manager & Facebook Pixel on your Magento 2 website. Using Magento 2 Google Tag Manager you can track the behavior of the customers coming onto your website. HK2 Multi Analytics automatically adds the Google Tag Manager code to all pages in your Magento 2 store, enabling site-wide tracking of user data.
 
-Added Google Product RSS Feed (Product feed for Google Shopping) - Just add the RSS 2.0 Feed Link from ![Screenshot2](/docs/images/ScreenShot_07.png)
+Added Google Product RSS Feed (Product feed for Google Shopping) - Just add the RSS 2.0 Feed Link from
+
+![Screenshot2](/docs/images/ScreenShot_07.png)
 
 ## 🧐 Features
 
