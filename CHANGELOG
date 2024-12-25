@@ -1,2 +1,9 @@
+v2.0.0 - 25-December-2024
+(*) Added - Google Product RSS Feed XML Generation
+(*) Cron Added - Once a Day - Google Product RSS Feed XML File is Generated
+(*) Updated Backend Settings/Configuration - Tabs
+(*) Updated Language Files
+(*) Added Hindi Translation
+
 v1.0.0 - 15-Aug-2023
 (*) Initial Release
