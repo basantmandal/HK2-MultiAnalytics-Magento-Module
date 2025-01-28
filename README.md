@@ -27,7 +27,7 @@ This is a Open Source - Free to use Module. No charge or any fee is there to use
 
 ### Method 1: Install ready-to-paste package
 
-[Download Link - HK2 - Add Boostrap5 - (https://github.com/basantmandal/HK2-MultiAnalytics/releases/tag/2.0.0)](https://github.com/basantmandal/HK2-MultiAnalytics/releases/tag/2.0.0)
+[Download Link - HK2 - Add Boostrap5 - (https://github.com/basantmandal/HK2-MultiAnalytics-Magento-Module/releases)](https://github.com/basantmandal/HK2-MultiAnalytics-Magento-Module/releases)
 
 Download the zip package and unzip it in app/code folder.
 
@@ -163,13 +163,9 @@ Contributions are welcome! If you’d like to contribute to this project:
 
 **Please Note** :- I may be a bit delayed in responding or slow in responding due to low amount of free time. I apologize for the inconvenience and I appreciate your patience
 
-## 📜 License
-
-Copyright (c) 2022, 2025 [**Basant Mandal (HK2 - Hash Tag Kitto)**](https://www.basantmandal.in/)
-
 ## 🤝 Consent
 
-By using HK2 AddBootstrap 5 Whitelisting Module, you hereby consent to our disclaimer and agree to its terms.
+By using any Product/Module/Application from Basant Mandal A.K.A (HK2 - Hash Tag Kitto), you hereby consent to our disclaimer and agree to its terms.
 
 ## 📢 Disclaimer
 
@@ -185,11 +181,15 @@ Please rate my project or give some stars at [https://github.com/basantmandal/HK
 
 If you have any feedback, please reach out to us at <support@hashtagkitto.co.in>
 
-## 🛡️ License
+## 🔗 Links:
 
-[![MIT License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/basantmandal/HK2-MultiAnalytics/blob/main/LICENSE.txt)
-
-## 🔗 Links
+Feel free to reach me through the below handles if you'd like to contact me.
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.basantmandal.in/)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/basantmandal/)
+
+## 📜 License:
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
